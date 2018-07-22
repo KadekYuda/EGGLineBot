@@ -61,7 +61,7 @@ def handle_message(event):
             print(help(text[5:]))
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=help(text[5:])))
+                TextSendMessage(text=help(text[6:])))
         elif len(text) == 5:
             line_bot_api.reply_message(
                 event.reply_token,
