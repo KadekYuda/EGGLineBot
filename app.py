@@ -47,7 +47,7 @@ def handle_message(event):
     if text.startswith("/yn") and len(text) > 5:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=yesOrNo(text[4:])))
+            TextSendMessage(text=yesorno(text[4:])))
     elif text.startswith("/pick") and len(text) > 7:
         line_bot_api.reply_message(
             event.reply_token,
@@ -56,9 +56,18 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=convert(text[9:])))
+    elif text.startswith("/help"):
+        if len(text) > 5:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=help(text[4:])))
+        elif len(text) == 0:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=help()))
 
 
-def yesOrNo(str):
+def yesorno(str):
     return str + '\n' + answer[randint(0,2)]
 
 
@@ -78,6 +87,33 @@ def convert(str):
         return exchange.convertecurrencyrates(args[0], args[1])
     else:
         return "Please specify your question"
+
+
+def help(str):
+    if str == 'convert':
+        return "Convert currency rate from one currency to another. Will return calculated value if amount is given.\n" \
+               "Usage:\n" \
+               "/convert <base_currency> <destination_currency> [<amount>]\n\n" \
+               "Example:\n" \
+               "/convert USD IDR\n" \
+               "/convert USD IDR 10"
+    elif str == 'yn':
+        return "Ask this bot to approve, disapprove, or doubt anything you tell her!\n" \
+               "Usage:\n" \
+               "/yn <insert question here>\n\n" \
+               "Example\n" \
+               "/yn Do you like cookies?"
+    elif str == 'pick':
+        return "Can't pick anything from a set of choice? Use this command to let the bot choose for you!\n" \
+               "Usage:\n" \
+               "/pick <a choice>/<another choice>/<unlimited choice works>\n\n" \
+               "Example:\n" \
+               "/pick me/you/he/she/anything\n"
+
+
+def help():
+    return "List of commands: convert, yn, pick.\n" \
+           "Use \help <commands> for more info."
 
 
 if __name__ == "__main__":
