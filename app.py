@@ -90,6 +90,7 @@ def convert(str):
 
 
 def help(str):
+    print(str)
     if str == 'convert':
         return "Convert currency rate from one currency to another. Will return calculated value if amount is given.\n" \
                "Usage:\n" \
