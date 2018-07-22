@@ -92,29 +92,29 @@ def convert(str):
 def help(str):
     print(str)
     if str == 'convert':
-        return "Convert currency rate from one currency to another. Will return calculated value if amount is given.\n" \
-               "Usage:\n" \
-               "/convert <base_currency> <destination_currency> [<amount>]\n\n" \
-               "Example:\n" \
-               "/convert USD IDR\n" \
+        return "Convert currency rate from one currency to another. Will return calculated value if amount is given.\n" + \
+               "Usage:\n" + \
+               "/convert <base_currency> <destination_currency> [<amount>]\n\n" + \
+               "Example:\n" + \
+               "/convert USD IDR\n" + \
                "/convert USD IDR 10"
     elif str == 'yn':
-        return "Ask this bot to approve, disapprove, or doubt anything you tell her!\n" \
-               "Usage:\n" \
-               "/yn <insert question here>\n\n" \
-               "Example\n" \
+        return "Ask this bot to approve, disapprove, or doubt anything you tell her!\n" + \
+               "Usage:\n" + \
+               "/yn <insert question here>\n\n" + \
+               "Example\n" + \
                "/yn Do you like cookies?"
     elif str == 'pick':
-        return "Can't pick anything from a set of choice? Use this command to let the bot choose for you!\n" \
-               "Usage:\n" \
-               "/pick <a choice>/<another choice>/<unlimited choice works>\n\n" \
-               "Example:\n" \
+        return "Can't pick anything from a set of choice? Use this command to let the bot choose for you!\n" + \
+               "Usage:\n" + \
+               "/pick <a choice>/<another choice>/<unlimited choice works>\n\n" + \
+               "Example:\n" + \
                "/pick me/you/he/she/anything\n"
 
 
 def list():
-    return "List of commands: convert, yn, pick.\n" \
-           "Use \help <commands> for more info."
+    return "List of commands: convert, yn, pick.\n" + \
+           "Use /help <commands> for more info."
 
 
 if __name__ == "__main__":
