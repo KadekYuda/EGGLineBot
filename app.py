@@ -57,11 +57,11 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=convert(text[9:])))
     elif text.startswith("/help"):
-        if len(text) > 5:
+        if len(text) > 6:
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=help(text[4:])))
-        elif len(text) == 0:
+        elif len(text) == 5:
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=list()))
