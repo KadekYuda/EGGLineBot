@@ -64,7 +64,7 @@ def handle_message(event):
         elif len(text) == 0:
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=help()))
+                TextSendMessage(text=list()))
 
 
 def yesorno(str):
@@ -111,7 +111,7 @@ def help(str):
                "/pick me/you/he/she/anything\n"
 
 
-def help():
+def list():
     return "List of commands: convert, yn, pick.\n" \
            "Use \help <commands> for more info."
 
