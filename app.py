@@ -1,6 +1,5 @@
 from flask import Flask, request, abort
 from random import randint
-
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -10,6 +9,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+from exchange import exchange
 import os
 
 
@@ -52,6 +52,10 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=pick(text[6:])))
+    elif text.startswith("/convert") and len(text) > 10:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=convert(text[9:])))
 
 
 def yesOrNo(str):
@@ -64,6 +68,16 @@ def pick(str):
         return list[randint(0, len(list))-1]
     else:
         return 'Please specify your question!'
+
+
+def convert(str):
+    args = str.split(" ")
+    if len(args) == 3:
+        return exchange.convertecurrencyrates(args[0], args[1], args[2])
+    elif len(args) == 2:
+        return exchange.convertecurrencyrates(args[0], args[1])
+    else:
+        return "Please specify your question"
 
 
 if __name__ == "__main__":
