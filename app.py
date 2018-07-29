@@ -47,7 +47,7 @@ def handle_message(event):
     if text.startswith("/"):
         parsed = text[1:].split(" ", 1)
         command = parsed[0]
-        if len(parsed) > 0:
+        if len(parsed) > 1:
             args = parsed[1]
         else:
             args = ""
@@ -70,15 +70,17 @@ def handle_message(event):
 
 
 def yesorno(str):
-    return str + '\n' + answer[randint(0, 2)]
-
+    if len(str) > 0:
+        return str + '\n' + answer[randint(0, 2)]
+    else:
+        return help("yn")
 
 def pick(str):
     list = str.split('/')
     if len(list) > 0:
         return list[randint(0, len(list))-1]
     else:
-        return 'Please specify your question!'
+        return help("pick")
 
 
 def convert(str):
@@ -88,7 +90,7 @@ def convert(str):
     elif len(args) == 2:
         return exchange.convertecurrencyrates(args[0], args[1])
     else:
-        return "Please specify your question"
+        return help("convert")
 
 
 def help(str):
@@ -110,7 +112,7 @@ def help(str):
                "Usage:\n" + \
                "/pick <a choice>/<another choice>/<unlimited choice works>\n\n" + \
                "Example:\n" + \
-               "/pick me/you/he/she/anything\n"
+               "/pick indomie/mie seda/pop mie\n"
     else:
         return "List of commands: convert, yn, pick.\n" + \
                "Use /help <commands> for more info."
