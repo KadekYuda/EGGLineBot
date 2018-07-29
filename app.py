@@ -47,7 +47,7 @@ def handle_message(event):
     if text.startswith("/"):
         parsed = text[1:].split(" ", 1)
         command = parsed[0]
-        if len(parsed) == 0:
+        if len(parsed) > 0:
             args = parsed[1]
         else:
             args = ""
