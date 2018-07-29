@@ -7,9 +7,9 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage
 )
-from exchange import exchange
+from commands.exchange import exchange
 import os
 
 
@@ -44,32 +44,33 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     text = event.message.text
-    if text.startswith("/yn") and len(text) > 5:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=yesorno(text[4:])))
-    elif text.startswith("/pick") and len(text) > 7:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=pick(text[6:])))
-    elif text.startswith("/convert") and len(text) > 10:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=convert(text[9:])))
-    elif text.startswith("/help"):
-        if len(text) > 5:
-            print(help(text[5:]))
+    if text.startswith("/"):
+        parsed = text[1:].split(" ", 1)
+        command = parsed[0]
+        if len(parsed) == 0:
+            args = parsed[1]
+        else:
+            args = ""
+        if command == "yn":
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=help(text[6:])))
-        elif len(text) == 5:
+                TextSendMessage(text=yesorno(args)))
+        elif command == "pick":
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=list()))
+                TextSendMessage(text=pick(args)))
+        elif command == "convert":
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=convert(args)))
+        elif command == "help":
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=help(args)))
 
 
 def yesorno(str):
-    return str + '\n' + answer[randint(0,2)]
+    return str + '\n' + answer[randint(0, 2)]
 
 
 def pick(str):
@@ -111,11 +112,8 @@ def help(str):
                "Example:\n" + \
                "/pick me/you/he/she/anything\n"
     else:
-        return "Invalid command asked. Please see list of commands by typing /help"
-
-def list():
-    return "List of commands: convert, yn, pick.\n" + \
-           "Use /help <commands> for more info."
+        return "List of commands: convert, yn, pick.\n" + \
+               "Use /help <commands> for more info."
 
 
 if __name__ == "__main__":
